@@ -5,9 +5,10 @@ import sys
 ia = IMDb()
 
 movies = {}
-# movies['doctorwho'] = ['0056751', '0116118', '0436992'] # Doctor Who
-movies['downton'] = ['1606375'] # Downton Abbey
-movies['bond'] = ['0055928', '0057076', '0058150', '0059800', '0062512', '0064757', '0066995', '0070328', '0071807', '0076752', '0079574', '0082398', '0086034', '0090264', '0093428', '0097742', '0113189', '0120347', '0143145', '0246460', '0381061', '0830515', '1074638'] # James Bond
+movies['doctor_who'] = ['0056751', '0116118', '0436992'] # Doctor Who
+movies['james_bond'] = ['0055928', '0057076', '0058150', '0059800', '0062512', '0064757', '0066995', '0070328', '0071807', '0076752', '0079574', '0082398', '0086034', '0090264', '0093428', '0097742', '0113189', '0120347', '0143145', '0246460', '0381061', '0830515', '1074638'] # James Bond
+movies['harry_potter'] = ['0241527', '0295297', '0304141', '0330373', '0373889', '0417741', '0926084', '1201607'] # Harry Potter
+# movies['downton_abbey'] = ['1606375'] # Downton Abbey
 
 # I'm well aware that Doctor Who isn't a movie, but I don't care about semantics!
 
@@ -18,6 +19,7 @@ for moviegroupid in movies.keys():
 	for movieid in moviegroup:
 		movie = ia.get_movie(movieid)
 		if not(movie['kind'] == 'tv series'):
+			sys.stderr.write(movie['title'] + '\n')
 			for actor in movie['cast']:
 				id = actor.personID
 				name = actor['name']
@@ -38,10 +40,10 @@ for moviegroupid in movies.keys():
 				for episodeid in series.keys():
 					episode = series[episodeid]
 					episodeimdbid = episode.movieID
-					episode = ia.get_movie(episodeimdbid)
-					sys.stderr.write(episode['title'])
-					if 'cast' in episode:
-						for actor in episode['cast']:
+					episodeinfo = ia.get_movie(episodeimdbid)
+					sys.stderr.write(episode['title'] + '\n')
+					if 'cast' in episodeinfo.keys():
+						for actor in episodeinfo['cast']:
 							id = actor.personID
 							name = actor['name']
 							if id in people:
@@ -55,5 +57,5 @@ for moviegroupid in movies.keys():
 								item['movies'].append(moviegroupid)
 							people[id] = item
 					else:
-						sys.stderr.write(" ... cast not found")
+						sys.stderr.write(" ... cast not found\n")
 print dumps(people)
