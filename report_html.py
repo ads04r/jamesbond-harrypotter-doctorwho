@@ -21,7 +21,7 @@ for i in range(2, max + 1):
 		id = k[j]
 		if people[id]['moviecount'] == i:
 			movielist = string.capwords(', '.join(people[id]['movies']).replace("_", " "))
-			print '<tr><td><a href="http://www.imdb.com/name/nm' + id + '/">' + people[id]['name'] + '</a></td><tr>(' + movielist + ')</td></tr>'
+			print '<tr><td><a href="http://www.imdb.com/name/nm' + id + '/">' + people[id]['name'] + '</a></td><td>(' + movielist + ')</td></tr>'
 
 	print "</table>"
 
