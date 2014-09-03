@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from imdb import IMDb
 from json import dumps
 import sys
