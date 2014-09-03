@@ -41,7 +41,7 @@ for moviegroupid in movies.keys():
 					episode = series[episodeid]
 					episodeimdbid = episode.movieID
 					episodeinfo = ia.get_movie(episodeimdbid)
-					sys.stderr.write(episode['title'] + '\n')
+					sys.stderr.write(episode['title'].encode('ascii', 'ignore') + '\n')
 					if 'cast' in episodeinfo.keys():
 						for actor in episodeinfo['cast']:
 							id = actor.personID
